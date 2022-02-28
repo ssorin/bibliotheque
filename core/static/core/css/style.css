@@ -1,0 +1,14 @@
+.image-cover {
+    max-width: 100%;
+}
+
+.image-thumb {
+    width:100px
+}
+
+.table__image-cel {
+    width: 100px;
+}
+.table__content-cel {
+    width: 70%;
+}

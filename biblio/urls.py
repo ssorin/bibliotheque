@@ -1,12 +1,12 @@
 from django.urls import path
 
-from .views import (index, book_detail, book_list,
-                    author_detail, author_list,
-                    series_detail, series_list,
-                    book_type_detail, book_type_list,
-                    category_detail, category_list,
-                    edition_detail, edition_list
-                    )
+from .views.authors import author_detail, author_list
+from .views.book_types import book_type_detail, book_type_list
+from .views.books import book_list, book_detail
+from .views.categories import category_list, category_detail
+from .views.editions import edition_detail, edition_list
+from .views.series import series_list, series_detail
+from .views.home import index
 
 
 app_name = 'biblio'

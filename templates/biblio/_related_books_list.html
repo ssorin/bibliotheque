@@ -1,0 +1,15 @@
+<table class="table table-hover">
+  <tbody>
+    {% for related_book in books %}
+        {% if related_book.id != book_id %}
+        <tr>
+          <td class="table__image-cel"><img src="{{ related_book.image }}" class="image-thumb"></td>
+          <td class="table__content-cel"><a href="{{ related_book.get_absolute_url }}">{{ related_book.title }}</a></td>
+          <td>prêter | <a href="{{ related_book.get_absolute_url }}">voir</a></td>
+        </tr>
+        {% endif %}
+    {% empty %}
+        <p>Pas d'autre de livres dans cette collection.</p>
+    {% endfor %}
+  </tbody>
+</table>

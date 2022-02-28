@@ -1,0 +1,9 @@
+{% extends "biblio/_base_card_list.html" %}
+
+{% block card_title %}
+    Livres
+{% endblock %}
+
+{% block card_content_content %}
+    {% include "biblio/_related_books_list.html" with books=books %}
+{% endblock card_content_content %}

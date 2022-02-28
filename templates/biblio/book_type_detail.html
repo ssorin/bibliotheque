@@ -1,0 +1,9 @@
+{% extends "biblio/_base_card.html" %}
+
+{% block card_title %}
+    Type : {{ book_type.name }}
+{% endblock %}
+
+{% block card_content %}
+    {% include "biblio/_related_books_list.html" with books=book_type.book.all %}
+{% endblock card_content %}

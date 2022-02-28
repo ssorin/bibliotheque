@@ -1,0 +1,13 @@
+{% extends "biblio/_base_card_list.html" %}
+
+{% block card_title %}
+    Catégories
+{% endblock %}
+
+{% block card_content_content %}
+    {% for category in categories %}
+    <tr>
+      <td><a href="{{ category.get_absolute_url }}">{{ category.name }} ({{ category.book_set.all.count }})</a></td>
+    </tr>
+    {% endfor %}
+{% endblock %}

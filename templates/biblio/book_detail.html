@@ -1,0 +1,93 @@
+{% extends "biblio/_base_card.html" %}
+
+{% block card_content %}
+
+    <div class="row">
+        <div class="col col-lg-6 col-md-12">
+            <img src="{{ book.image }}" class="image-cover">
+        </div>
+
+        <div class="col col-lg-6 col-md-12">
+            <div class="text-xs font-weight-bold mb-3">
+                <h3>{{ book.title }}</h3>
+            </div>
+
+            <p>{{ book.resume }}</p>
+
+            <table class="table">
+              <tbody>
+                {% for author in book.authors.all %}
+                <tr>
+                  <td>{{ author.type }}</td>
+                  <td>
+                      <a href="{{ author.get_absolute_url }}">{{ author.last_name }}
+                          {% if author.first_name %}({{ author.first_name }}){% endif %}
+                      </a>
+                  </td>
+                </tr>
+                {% endfor %}
+
+                <tr>
+                  <td>Editeur / Collection</td>
+                  <td>
+                      <a href="{{ book.edition.get_absolute_url }}">{{ book.edition.name }}</a>
+                      {% if book.series %}
+                      / <a href="{{ book.series.get_absolute_url }}">{{ book.series.title }}</a>
+                      {% endif %}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Genre / Type</td>
+                  <td>
+                      {% for category in book.categories.all %}
+                        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                        {% if not forloop.last %}, {% endif %}
+                      {% endfor %}
+                        /
+                      <a href="{{ book.type.get_absolute_url }}">{{ book.type.name }}</a>
+                  </td>
+                </tr>
+
+                <tr>
+                    <td>Date de parution</td>
+                    <td>{% if book.edition_date %}{{ book.edition_date }}{% else %}?{% endif %}</td>
+                </tr>
+
+                <tr>
+                  <td>Statut de l'histoire:</td>
+                  <td>
+                      {{ book.series.volumes_number }} tomes<br />
+                      {% if book.series.is_ended %}Série terminée{% else %}Série en cours{% endif %}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Statut de votre collection :</td>
+                  <td>
+                    {% if book.series.book.count == book.series.volumes_number%}
+                        Collection complète
+                    {% else %}
+                        {{ book.series.book.count }} tome{{ book.series.book.count |pluralize:"s" }} / {{ book.series.volumes_number }} disponible
+                    {% endif %}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    {% if book.series %}
+    <div class="row mt-5">
+        <div class="col">
+            <div class="text-xs font-weight-bold mb-3">
+                <h3>Dans la même collection</h3>
+            </div>
+
+            {% include "biblio/_related_books_list.html" with books=book.series.book.all book_id=book.id %}
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock card_content %}

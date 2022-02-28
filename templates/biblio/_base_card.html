@@ -1,0 +1,20 @@
+{% extends "biblio/base.html" %}
+
+
+{% block biblio_content %}
+
+    <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold mb-3">
+                        <h3>{% block card_title %}{% endblock %}</h3>
+                    </div>
+                    {% block card_content %}{% endblock %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock biblio_content %}

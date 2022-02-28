@@ -1,0 +1,12 @@
+{% extends "biblio/base.html" %}
+
+{% block biblio_content %}
+    <h3>Type : {{ book_type.name }}</h3>
+
+    <ul>
+        {% for book in book_type.book.all %}
+        <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock biblio_content %}

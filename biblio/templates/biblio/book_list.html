@@ -1,0 +1,9 @@
+{% extends "biblio/base.html" %}
+
+{% block biblio_content %}
+    <ul>
+    {% for book in books %}
+        <li><a href="{% url 'biblio:book_detail' book.id %}">{{ book }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock biblio_content %}

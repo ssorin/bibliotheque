@@ -1,0 +1,48 @@
+{% extends "biblio/base.html" %}
+
+{% block biblio_content %}
+    <h2>{{ book.title }}</h2>
+
+    <ul class="inline">
+    <li>
+        Auteur :
+        {% for author in book.authors.all %}
+            <a href="{{ author.get_absolute_url }}">{{ author }}</a>
+            {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </li>
+
+    <li>Édition : <a href="{{ book.edition.get_absolute_url }}">{{ book.edition.name }}</a></li>
+    <li>Série : <a href="{{ book.series.get_absolute_url }}">{{ book.series.title }}</a></li>
+
+    <li>
+        Type / Catégories :
+        <a href="{{ book.type.get_absolute_url }}">{{ book.type.name }}</a> /
+        {% for category in book.categories.all %}
+            <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+            {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </li>
+
+    <li>Date d'édition : {{ book.edition_date }}</li>
+    <li>isbn : {{ book.isbn }}</li>
+    <li>
+        Statut de l'histoire :
+        {{ book.series.volumes_number }} tomes // {% if book.series.is_ended %}Série terminée{% else %}Série en cours{% endif %}
+    </li>
+
+    <li>
+        Statut de votre collection :
+        {% if book.series.book.count == book.series.volumes_number%}
+            Collection complète
+        {% else %}
+            {{ book.series.book.count }} tome{{ book.series.book.count |pluralize:"s" }} / {{ book.series.volumes_number }} disponible
+        {% endif %}
+
+    </li>
+    </ul>
+
+    <p>{{ book.resume }}</p>
+
+    <img src="{{ book.image }}" width="400px">
+{% endblock biblio_content %}

@@ -1,0 +1,10 @@
+{% extends "biblio/base.html" %}
+
+{% block biblio_content %}
+    <h3>Auteurs</h3>
+    <ul>
+    {% for author in authors %}
+        <li><a href="{{ author.get_absolute_url }}">{{ author }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock biblio_content %}

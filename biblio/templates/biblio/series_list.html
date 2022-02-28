@@ -1,0 +1,13 @@
+{% extends "biblio/base.html" %}
+
+{% block biblio_content %}
+    <h3>Collections/Series</h3>
+    <ul>
+    {% for serie in series %}
+        <li>
+            <img src="{{ serie.image }}" width="80px">
+            <a href="{{ serie.get_absolute_url }}">{{ serie.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock biblio_content %}

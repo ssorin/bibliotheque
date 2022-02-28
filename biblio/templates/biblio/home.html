@@ -1,0 +1,12 @@
+{% extends "biblio/base.html" %}
+
+{% block biblio_content %}
+
+    <h3>Derniers livres</h3>
+    <p>5 derniers livres ajoutés dans la collection</p>
+    <ul>
+    {% for book in books %}
+        <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock biblio_content %}

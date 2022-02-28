@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Projet Bibliotheque</h1>
+        <ul class="navbar">
+            <li><a href="{% url 'biblio:home' %}">Home</a></li>
+            <li><a href="{% url 'biblio:book_list' %}">Books</a></li>
+            <li><a href="{% url 'biblio:author_list' %}">Authors</a></li>
+            <li><a href="{% url 'biblio:series_list' %}">Collections/Séries</a></li>
+            <li><a href="{% url 'biblio:book_types_list' %}">Types</a></li>
+            <li><a href="{% url 'biblio:category_list' %}">Categories</a></li>
+            <li><a href="{% url 'biblio:edition_list' %}">editions</a></li>
+        </ul>
+        {% block biblio_content %}{% endblock %}
+    </div>
+{% endblock content %}

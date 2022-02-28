@@ -1,0 +1,12 @@
+{% extends "biblio/base.html" %}
+
+{% block biblio_content %}
+    <h3>Catégories</h3>
+    <ul>
+    {% for category in categories %}
+        <li>
+            <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock biblio_content %}

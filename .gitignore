@@ -1,0 +1,19 @@
+# use glob syntax.
+syntax: glob
+
+*.log
+*.swp
+*.swo
+*.pyc
+db.sqlite3
+local_prod.py
+local_recette.py
+local_staging.py
+local.py
+settings/env.py
+media/
+ignore/
+.idea/
+
+
+

@@ -84,7 +84,7 @@ class Series(models.Model):
     volumes_number = models.IntegerField()
     is_ended = models.BooleanField(default=False)
     resume = models.TextField(blank=True, null=True)
-    image_file = models.ImageField(blank=True, null=True)
+    image_file = models.ImageField(blank=True, null=True, upload_to="images/series/")
     image_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
@@ -111,7 +111,7 @@ class Book(models.Model):
     series = models.ForeignKey(Series, on_delete=models.DO_NOTHING, blank=True, null=True, related_name="book")
     edition_date = models.DateField()
     resume = models.TextField(blank=True, null=True)
-    image_file = models.ImageField(blank=True, null=True)
+    image_file = models.ImageField(blank=True, null=True, upload_to="images/books/")
     image_url = models.URLField(blank=True, null=True)
     isbn = models.CharField(max_length=13, blank=True, null=True)
     authors = models.ManyToManyField(Author)

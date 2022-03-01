@@ -1,0 +1,21 @@
+{% extends "biblio/_base_card_list.html" %}
+
+{% block card_title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block card_content_content %}
+    {% for obj in objects %}
+    <tr>
+      <td>
+          <a href="{{ obj.get_absolute_url }}">{{ obj }}
+            {% if obj.book.all  %}
+                ({{ obj.book.all.count }})
+            {% else %}
+                ({{ obj.book_set.all.count }})
+            {% endif %}
+          </a>
+      </td>
+    </tr>
+    {% endfor %}
+{% endblock %}

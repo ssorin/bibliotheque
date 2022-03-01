@@ -17,3 +17,18 @@ Etape 2 :
 - creation des templates liste et detail pour l'ensemble des tables
 - administration de l'ensemble des tables
 - change image upload_to in books and series models
+
+Etape 3 :
+---------
+
+- Refacto et style de l'app biblio
+- decoupage de views.py en plusieurs vues
+- decoupage de models.py en plusieurs models
+- ajout d'une feuille de style
+- customisation de la page d'accueil
+- customisation de l'ensemble des pages
+
+Etape 3b :
+---------
+
+- Refacto list and detail view

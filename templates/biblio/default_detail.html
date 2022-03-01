@@ -1,0 +1,13 @@
+{% extends "biblio/_base_card.html" %}
+
+{% block card_title %}
+    {{ obj }}
+{% endblock %}
+
+{% block card_content %}
+    {% if obj.book.all  %}
+            {% include "biblio/_related_books_list.html" with books=obj.book.all %}
+    {% else %}
+            {% include "biblio/_related_books_list.html" with books=obj.book_set.all %}
+    {% endif %}
+{% endblock card_content %}

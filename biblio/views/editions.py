@@ -10,7 +10,7 @@ def edition_detail(request, edition_id):
     """
     edition = get_object_or_404(Edition, pk=edition_id)
 
-    return render(request, "biblio/edition_detail.html", {'edition': edition})
+    return render(request, "biblio/default_detail.html", {'obj': edition})
 
 
 def edition_list(request):
@@ -19,4 +19,10 @@ def edition_list(request):
     """
     editions = Edition.objects.all()
 
-    return render(request, "biblio/edition_list.html", {'editions': editions})
+    return render(
+        request, "biblio/default_list.html",
+        {
+            'objects': editions,
+            'page_title': 'Éditions'
+        }
+    )

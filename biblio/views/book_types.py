@@ -11,8 +11,7 @@ def book_type_detail(request, book_type_id):
     """
     book_type = get_object_or_404(BookType, pk=book_type_id)
 
-    return render(request, "biblio/book_type_detail.html", {'book_type': book_type})
-
+    return render(request, "biblio/default_detail.html", {'obj': book_type})
 
 def book_type_list(request):
     """
@@ -20,4 +19,10 @@ def book_type_list(request):
     """
     book_types = BookType.objects.all()
 
-    return render(request, "biblio/book_type_list.html", {'book_types': book_types})
+    return render(
+        request, "biblio/default_list.html",
+        {
+            'objects': book_types,
+            'page_title': 'Types'
+        }
+    )

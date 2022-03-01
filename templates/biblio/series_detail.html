@@ -1,9 +1,0 @@
-{% extends "biblio/_base_card.html" %}
-
-{% block card_title %}
-    Collection/Series : {{ series.title }}
-{% endblock %}
-
-{% block card_content %}
-    {% include "biblio/_related_books_list.html" with books=series.book.all %}
-{% endblock card_content %}

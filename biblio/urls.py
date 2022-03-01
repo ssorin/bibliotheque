@@ -20,8 +20,8 @@ urlpatterns = [
     path('series/<int:series_id>', series_detail, name='series_detail'),
     path('series/', series_list, name='series_list'),
 
-    path('book_types/<int:book_type_id>', book_type_detail, name='book_type_detail'),
-    path('book_types/', book_type_list, name='book_types_list'),
+    path('book-types/<int:book_type_id>', book_type_detail, name='book_type_detail'),
+    path('book-types/', book_type_list, name='book_types_list'),
 
     path('categories/<int:category_id>', category_detail, name='category_detail'),
     path('categories/', category_list, name='category_list'),

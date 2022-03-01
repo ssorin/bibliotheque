@@ -11,7 +11,7 @@ def series_detail(request, series_id):
     """
     series = get_object_or_404(Series, pk=series_id)
 
-    return render(request, "biblio/series_detail.html", {'series': series})
+    return render(request, "biblio/default_detail.html", {'obj': series})
 
 
 def series_list(request):
@@ -20,4 +20,10 @@ def series_list(request):
     """
     series = Series.objects.all()
 
-    return render(request, "biblio/series_list.html", {'series': series})
+    return render(
+        request, "biblio/default_list.html",
+        {
+            'objects': series,
+            'page_title': 'Collections/Series'
+        }
+    )

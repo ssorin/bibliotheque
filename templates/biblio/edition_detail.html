@@ -1,9 +1,0 @@
-{% extends "biblio/_base_card.html" %}
-
-{% block card_title %}
-    Edition : {{ edition.name }}
-{% endblock %}
-
-{% block card_content %}
-    {% include "biblio/_related_books_list.html" with books=edition.book.all %}
-{% endblock card_content %}

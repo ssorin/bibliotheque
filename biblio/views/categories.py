@@ -11,7 +11,7 @@ def category_detail(request, category_id):
     """
     category = get_object_or_404(Category, pk=category_id)
 
-    return render(request, "biblio/category_detail.html", {'category': category})
+    return render(request, "biblio/default_detail.html", {'obj': category})
 
 
 def category_list(request):
@@ -20,4 +20,10 @@ def category_list(request):
     """
     categories = Category.objects.all()
 
-    return render(request, "biblio/category_list.html", {'categories': categories})
+    return render(
+        request, "biblio/default_list.html",
+        {
+            'objects': categories,
+            'page_title': 'Catégories'
+        }
+    )

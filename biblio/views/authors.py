@@ -11,7 +11,7 @@ def author_detail(request, author_id):
     """
     author = get_object_or_404(Author, pk=author_id)
 
-    return render(request, "biblio/author_detail.html", {'author': author})
+    return render(request, "biblio/default_detail.html", {'obj': author})
 
 
 def author_list(request):
@@ -20,4 +20,10 @@ def author_list(request):
     """
     authors = Author.objects.all()
 
-    return render(request, "biblio/author_list.html", {'authors': authors})
+    return render(
+        request, "biblio/default_list.html",
+        {
+            'objects': authors,
+            'page_title': 'Auteurs'
+        }
+    )

@@ -25,6 +25,10 @@ class Book(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['title']
+
+
     def __str__(self):
         return f"Livre :  {self.title}"
 

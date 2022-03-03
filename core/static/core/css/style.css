@@ -12,3 +12,8 @@
 .table__content-cel {
     width: 70%;
 }
+
+.form--right {
+    float: right;
+    margin-top: -50px;
+}

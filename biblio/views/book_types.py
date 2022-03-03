@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from biblio.models import BookType
 
 
+@login_required
 def book_type_detail(request, book_type_id):
     """
     Page détail d'un BookType
@@ -13,6 +15,8 @@ def book_type_detail(request, book_type_id):
 
     return render(request, "biblio/default_detail.html", {'obj': book_type})
 
+
+@login_required
 def book_type_list(request):
     """
     Liste tous les BookType

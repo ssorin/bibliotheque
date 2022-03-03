@@ -4,6 +4,21 @@
     Livres
 {% endblock %}
 
+{% block card_filter %}
+    <form class="form-inline form--right" role="form" method="get">
+        <div class="form-group">
+            <label class="filter-col pr-1" for="pref-perpage">Filtrer par: </label>
+            <select id="pref-perpage" class="form-control mr-1" name="filter">
+                <option value="title" {% if filter == 'title' %}selected{% endif %}>Titre du livre</option>
+                <option value="create_date" {% if filter == 'create_date' %}selected{% endif %}>Date d'ajout</option>
+                <option value="series" {% if filter == 'series' %}selected{% endif %}>Serie/Collection</option>
+                <option value="authors" {% if filter == 'authors' %}selected{% endif %}>Auteur</option>
+            </select>
+            <input type="submit" value="go" class="btn btn-secondary">
+        </div>
+    </form>
+{% endblock card_filter %}
+
 {% block card_content_content %}
     {% include "biblio/_related_books_list.html" with books=books %}
 {% endblock card_content_content %}

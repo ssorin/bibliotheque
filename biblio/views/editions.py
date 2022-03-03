@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from biblio.models import Edition
 
+
+@login_required
 def edition_detail(request, edition_id):
     """
     Page détail d'une catégorie
@@ -13,6 +16,7 @@ def edition_detail(request, edition_id):
     return render(request, "biblio/default_detail.html", {'obj': edition})
 
 
+@login_required
 def edition_list(request):
     """
     Liste toutes les catégories

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from biblio.models import Book
 
 
+@login_required
 def index(request):
     """ Page d'accueil de l'application biblio """
 

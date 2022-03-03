@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from biblio.models import Author
 
 
+@login_required
 def author_detail(request, author_id):
     """
     Page détail d'un auteur
@@ -14,6 +16,7 @@ def author_detail(request, author_id):
     return render(request, "biblio/default_detail.html", {'obj': author})
 
 
+@login_required
 def author_list(request):
     """
     Liste tous les auteurs de la collection

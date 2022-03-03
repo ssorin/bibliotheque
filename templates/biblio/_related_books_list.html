@@ -4,7 +4,21 @@
         {% if related_book.id != book_id %}
         <tr>
           <td class="table__image-cel"><img src="{{ related_book.image }}" class="image-thumb"></td>
-          <td class="table__content-cel"><a href="{{ related_book.get_absolute_url }}">{{ related_book.title }}</a></td>
+
+          <td class="table__content-cel">
+              <a href="{{ related_book.get_absolute_url }}">{{ related_book.title }}</a>
+              <br />
+
+              Auteur(s):
+              {% for author in related_book.authors.all %}
+                <a href="{{ author.get_absolute_url }}">{{ author.name }}</a>{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+              <br />
+              {% if related_book.series %}
+                Série/collection : <a href="{{ related_book.series.get_absolute_url }}">{{ related_book.series.title }}</a>
+              {% endif %}
+          </td>
+
           <td>prêter | <a href="{{ related_book.get_absolute_url }}">voir</a></td>
         </tr>
         {% endif %}
@@ -13,3 +27,27 @@
     {% endfor %}
   </tbody>
 </table>
+
+<div class="row">
+<div class="col text-center">
+    <nav aria-label="Page navigation" style="display: inline-block">
+      <ul class="pagination">
+        {% if books.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1" class="btn btn-primary"><< début</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ books.previous_page_number }}">précédent</a></li>
+        {% endif %}
+
+
+          <li class="page-item"><a class="page-link" style="color: #000">Page {{ books.number }} / {{ books.paginator.num_pages }}.</a></li>
+
+
+        {% if books.has_next %}
+            <li class="page-item"><a class="page-link"href="?page={{ books.next_page_number }}" class="btn">suivant</a></li>
+            <li class="page-item"><a class="page-link"href="?page={{ books.paginator.num_pages }}" class="btn">fin >></a></li>
+        {% endif %}
+
+      </ul>
+    </nav>
+</div>
+</div>
+

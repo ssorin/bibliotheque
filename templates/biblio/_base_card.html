@@ -9,6 +9,7 @@
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold mb-3">
                         <h3>{% block card_title %}{% endblock %}</h3>
+                        {% block card_filter %}{% endblock card_filter %}
                     </div>
                     {% block card_content %}{% endblock %}
                 </div>

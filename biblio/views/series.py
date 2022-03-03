@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from biblio.models import Series
 
 
+@login_required
 def series_detail(request, series_id):
     """
     Page détail d'une série
@@ -14,6 +16,7 @@ def series_detail(request, series_id):
     return render(request, "biblio/default_detail.html", {'obj': series})
 
 
+@login_required
 def series_list(request):
     """
     Liste toutes les séries

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from biblio.models import Category
 
 
+@login_required
 def category_detail(request, category_id):
     """
     Page détail d'une catégorie
@@ -14,6 +16,7 @@ def category_detail(request, category_id):
     return render(request, "biblio/default_detail.html", {'obj': category})
 
 
+@login_required
 def category_list(request):
     """
     Liste toutes les catégories

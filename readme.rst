@@ -43,3 +43,10 @@ Etape 4 :
     - /biblio/admin.py
     - /biblio/forms.py
     - /biblio/tools.py
+
+Etape 5 :
+---------
+- ajout de filtre sur la vue books_list
+- ajout d'un moteur de recherche
+- login required pour l'ensemble des vues
+- pagination sur la liste des livres

@@ -21,12 +21,12 @@ class Author(models.Model):
     """
     Auteur/dessinateur (...) d'un livre
     """
-    last_name = models.CharField(max_length=250)
-    first_name = models.CharField(max_length=250, blank=True, null=True)
+    name = models.CharField(max_length=250)
+    #first_name = models.CharField(max_length=250, blank=True, null=True)
     type = models.ForeignKey(AuthorType, on_delete=models.DO_NOTHING, related_name="author")
 
     def __str__(self):
-        return f"{self.last_name} {self.first_name or ''} ({self.type})"
+        return f"{self.name}  ({self.type})"
 
     def get_absolute_url(self):
         return reverse('biblio:author_detail', args=[self.id])

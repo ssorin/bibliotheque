@@ -1,0 +1,38 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+    <div>
+        <form action="." method="POST" enctype="multipart/form-data">
+            {{ form.as_p }}
+            {% csrf_token %}
+
+            <button type="submit">Upload CSV</button>
+        </form>
+    </div>
+    <br />
+
+
+    {% if result %}
+        <h2>Import terminé !</h2>
+        <p><a href="{% url "biblio:book_list" %}">voir tous les livres</a></p>
+
+        <h3>Livre(s) ajouté(s) à votre collection :</h3>
+        <ul>
+            {% for book in books %}
+                <li><a href="{{ book.get_absolute_url }}">{{ book }}</a></li>
+                {% empty %}
+                    <p>pas de résultat</p>
+            {% endfor %}
+        </ul>
+
+        <h3>Livre(s) déjà présent dans votre collection :</h3>
+        <ul>
+            {% for book in books_exist %}
+                <li>{{ book }}
+            {% empty %}
+                <p>pas de résultat</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

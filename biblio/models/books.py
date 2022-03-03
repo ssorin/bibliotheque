@@ -13,7 +13,7 @@ class Book(models.Model):
     slug = models.SlugField(max_length=250)
     title = models.CharField(max_length=500)
     series = models.ForeignKey(Series, on_delete=models.DO_NOTHING, blank=True, null=True, related_name="book")
-    edition_date = models.DateField()
+    edition_date = models.DateField(blank=True, null=True)
     resume = models.TextField(blank=True, null=True)
     image_file = models.ImageField(blank=True, null=True, upload_to="images/books/")
     image_url = models.URLField(blank=True, null=True)

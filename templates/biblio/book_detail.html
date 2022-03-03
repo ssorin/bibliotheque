@@ -20,9 +20,7 @@
                 <tr>
                   <td>{{ author.type }}</td>
                   <td>
-                      <a href="{{ author.get_absolute_url }}">{{ author.last_name }}
-                          {% if author.first_name %}({{ author.first_name }}){% endif %}
-                      </a>
+                      <a href="{{ author.get_absolute_url }}">{{ author.name }}</a>
                   </td>
                 </tr>
                 {% endfor %}

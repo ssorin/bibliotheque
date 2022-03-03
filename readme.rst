@@ -32,3 +32,14 @@ Etape 3b :
 ---------
 
 - Refacto list and detail view
+
+Etape 4 :
+---------
+
+- Create tools to import data from csv in admin
+- Create tools to export data from csv in admin
+- files changes :
+    - /biblio/templates/biblio/admin/*.html
+    - /biblio/admin.py
+    - /biblio/forms.py
+    - /biblio/tools.py

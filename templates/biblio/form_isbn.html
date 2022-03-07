@@ -57,9 +57,6 @@ https://github.com/mebjas/html5-qrcode
 
             function onScanSuccess(decodedText, decodedResult) {
                 // Handle on success condition with the decoded text or result.
-                console.log(`Scan result: ${decodedText}`, decodedResult);
-                {#var paragraph = document.getElementById("result");#}
-                {#paragraph.textContent = 'Scan result: ${decodedText}', decodedResult;#}
                 var input_isbn = document.getElementById("id_isbn");
                 input_isbn.value = `${decodedText}`, decodedResult;
             }

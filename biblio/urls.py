@@ -7,6 +7,7 @@ from .views.categories import category_list, category_detail
 from .views.editions import edition_detail, edition_list
 from .views.series import series_list, series_detail
 from .views.home import index
+from .views.tools import isbn_create
 
 
 app_name = 'biblio'
@@ -28,6 +29,8 @@ urlpatterns = [
 
     path('editions/<int:edition_id>', edition_detail, name='edition_detail'),
     path('editions/', edition_list, name='edition_list'),
+
+    path('isbn_create/', isbn_create, name='isbn_create'),
 
     path('', index, name='home'),
 ]

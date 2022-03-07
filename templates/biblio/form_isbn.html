@@ -1,0 +1,40 @@
+{% extends "biblio/_base_card_list.html" %}
+
+{% block card_title %}
+    Ajouter un livre
+{% endblock %}
+
+
+{% block card_content_content %}
+
+    <div class="row mb-4">
+        <div class="col">
+        <form action="." method="POST" enctype="multipart/form-data" class="form-inline">
+
+            {% for field in form %}
+                {{ field }}
+            {% endfor %}
+
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary mb-2 ml-2">chercher</button>
+        </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+        {% if book %}
+            {% if is_created %}
+                <p>Le livre <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> a été créer avec succès</p>
+            {% else %}
+                <p>Le livre <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> existe déjà</p>
+            {% endif %}
+        {% else %}
+            <p>Aucun livre trouvé avec cet ISBN</p>
+        {% endif %}
+        </div>
+    </div>
+
+
+
+{% endblock card_content_content %}

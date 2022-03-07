@@ -1,0 +1,20 @@
+{% extends "biblio/base.html" %}
+
+{% block biblio_content %}
+   <h2>Google Book</h2>
+
+    <form action="." method="POST" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">go</button>
+    </form>
+
+    {% if is_created %}
+        <p>Le livre a été créer avec succès</p>
+    {% else %}
+        <p>Le livre existe déjà</p>
+    {% endif %}
+
+    {{ book }}
+
+{% endblock biblio_content %}

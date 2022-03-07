@@ -1,10 +1,14 @@
-import csv, io
-
-from django.shortcuts import render
+import io
+import datetime
+import requests
 from django.utils.text import slugify
 
-from .models import Book, Author, BookType, Edition, AuthorType, Series
-from .forms import UploadFileForm
+from .models import Book
+from .app_settings import GOOGLE_API_URL
+from .shortcuts import get_book_by_title, get_book_type, get_edition, get_series, add_authors
+
+DATA_ORIGIN_GOOGLE_API = 'csv'
+DATA_ORIGIN_CSV = 'google_api'
 
 
 def csv_to_dict(file):
@@ -20,141 +24,102 @@ def csv_to_dict(file):
     return io_string
 
 
-def get_book_by_title(book_title):
-    """
-    Verifie si le livre existe déjà
-    :return True si le livre existe - False sinon
-    """
-    book = None
-    try:
-        book = Book.objects.get(title=book_title)
-    except Book.DoesNotExist:
-        pass
+def get_data_by_origin(data, data_origin=None):
 
-    return book
+    if data_origin == DATA_ORIGIN_CSV:
+        book_data = csv_mapping(data)
 
+    elif data_origin == DATA_ORIGIN_GOOGLE_API:
+        book_data = google_api_mapping(data)
 
-def get_book_type(book_type_name):
-    """
-    Retourne le type de livre
-    Vérifie si le type existe
-    si le type n'existe pas, alors on le créé
-    s'il n'y a pas de type de précisé, alors on retourne un type par defaut (le 1er de la db)
-    """
-    if book_type_name != "" or book_type_name:
-        book_type, create = BookType.objects.get_or_create(name=book_type_name, slug=slugify(book_type_name))
-        return book_type
     else:
-        return BookType.objects.all().first()
+        book_data = data
+
+    return book_data
 
 
-def get_edition(edition_name):
-    """
-    Retourne le type de livre
-    Vérifie si le type existe
-    si le type n'existe pas, alors on le créé
-    s'il n'y a pas de type de précisé, alors on retourne un type par defaut (le 1er de la db)
-    """
-    edition = None
-    if edition_name != "" or edition_name:
-        edition, create = Edition.objects.get_or_create(name=edition_name, slug=slugify(edition_name))
-
-    return edition
-
-
-def get_series(series_name):
-    """
-    Retourne la collection du livre
-    Vérifie si la collection existe
-    si le type n'existe pas, alors on la créée
-    """
-    series = None
-    if series_name != "" or series_name:
-        series, create = Series.objects.get_or_create(title=series_name, slug=slugify(series_name))
-
-    return series
-
-
-def add_authors(book, author_data):
-    """
-    Ajoute des auteurs à un livre
-    """
-
-    default_author_type = AuthorType.objects.all().first()
-
-    authors = author_data.split(",")
-
-    for author_name in authors:
-        if author_name[0] == ' ':
-            author_name = author_name[1:]
-
-        try:
-            author = Author.objects.get(name=author_name)
-        except Author.DoesNotExist:
-            author = Author(name=author_name, type=default_author_type)
-            author.save()
-
-        book.authors.add(author)
-
-
-def book_create(book_data):
+def book_create(book_data, data_origin=None):
     """
     Création d'un livre à partir de données csv
     """
     create = False
-    book = get_book_by_title(book_data[0])
-    print("====> ")
+    book_data = get_data_by_origin(book_data, data_origin)
+    if not book_data:
+        return None, False
+
+    book = get_book_by_title(book_data['title'])
+
     if not book:
-        print(book_data[0])
-        book_type = get_book_type(book_data[5])
-        edition = get_edition(book_data[4])
-        series = get_series(book_data[7])
+        book_type = get_book_type(book_data['type'])
+        edition = get_edition(book_data['edition'])
+        series = get_series(book_data['series'])
+
+        create_date = None
+        if book_data['create_date']:
+            create_date = datetime.datetime.strptime(book_data['create_date'], "%Y-%m-%d").date()
 
         book = Book(
-            slug=slugify(book_data[0]),
-            title=book_data[0],
-            resume=book_data[1],
-            isbn=book_data[2],
+            slug=slugify(book_data['title']),
+            title=book_data['title'],
+            resume=book_data['resume'],
+            isbn=book_data['isbn'],
             edition=edition,
             type=book_type,
-            image_url=book_data[6],
+            image_url=book_data['image_url'],
+            edition_date=create_date,
             series=series,
         )
         book.save()
-        add_authors(book, book_data[3])
+        add_authors(book, book_data['authors'])
         create = True
-    print(" / ", create)
+
     return book, create
 
 
-def upload_file(request):
-    
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
+def csv_mapping(book_data):
 
-        if form.is_valid():
-            data = csv_to_dict(request.FILES['file'])
+    return {
+        'title': book_data[0],
+        'resume': book_data[1],
+        'isbn': book_data[2],
+        'authors': book_data[3],
+        'edition': book_data[4],
+        'type': book_data[5],
+        'image_url': book_data[6],
+        'series': book_data[7],
+        'create_date': None
+    }
 
-            book_list = []
-            book_exist_list = []
-            for row in csv.reader(data, delimiter=';', quotechar='"'):
-                book, create = book_create(row)
-                if create:
-                    book_list.append(book)
-                else:
-                    book_exist_list.append(book)
 
-            return render(
-                request, "biblio/csv2.html",
-                {
-                  'form': form,
-                  "result": True,
-                  'books': book_list,
-                  'books_exist': book_exist_list,
-                }
-            )
+def google_api_mapping(book_data):
 
-    else:
-        form = UploadFileForm()
+    data = None
 
-    return render(request, 'biblio/csv2.html', {'form': form})
+    if book_data and book_data.get('totalItems') > 0:
+        book_data = book_data['items'][0]['volumeInfo']
+
+        data = {
+            'title': book_data['title'],
+            'resume': '' if 'description' not in book_data else book_data['description'],
+            'isbn': '' if 'isbn' not in book_data else book_data['isbn'],
+            'authors': '' if 'authors' not in book_data else book_data['authors'][0],
+            'edition': '' if 'publisher' not in book_data else book_data['publisher'],
+            'type': '',
+            'image_url': '' if 'imageLinks' not in book_data else book_data['imageLinks']['thumbnail'],
+            'series': '',
+            'create_date': '' if 'publishedDate' not in book_data else book_data['publishedDate']
+        }
+
+    return data
+
+
+def get_data_from_google_api(isbn_number):
+
+    r = requests.get(url=f'{GOOGLE_API_URL}?q=isbn:{isbn_number}')
+
+    data = r.json()
+    data['isbn'] = isbn_number
+
+    return data
+
+

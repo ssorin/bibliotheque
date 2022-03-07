@@ -8,6 +8,7 @@ from .models import Category, Edition, Book, Author, BookType, AuthorType, Serie
 from .forms import UploadFileForm
 from .tools import csv_to_dict, book_create
 
+
 class ExportCsvMixin:
     def export_as_csv(self, request, queryset):
 
@@ -43,6 +44,7 @@ class ExportCsvMixin:
 
 
 class BookAdmin(admin.ModelAdmin, ExportCsvMixin):
+    list_display = ('id', 'title')
     actions = ["export_as_csv"]
     change_list_template = "biblio/admin/book_changelist.html"
 
@@ -63,7 +65,7 @@ class BookAdmin(admin.ModelAdmin, ExportCsvMixin):
                 book_list = []
                 book_exist_list = []
                 for row in csv.reader(data, delimiter=';', quotechar='"'):
-                    book, create = book_create(row)
+                    book, create = book_create(row, data_origin='csv')
                     if create:
                         book_list.append(book)
                     else:

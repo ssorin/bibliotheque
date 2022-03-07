@@ -50,3 +50,9 @@ Etape 5 :
 - ajout d'un moteur de recherche
 - login required pour l'ensemble des vues
 - pagination sur la liste des livres
+
+Etape 6 :
+---------
+- ajout d'un formulaire permettant de rechercher un livre par ISBN
+- si l'isbn n'est pas trouvé, le livre est créé en important les données depuis google API
+- ajout d'un scanner de code bar JS

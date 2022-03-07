@@ -1,4 +1,12 @@
 {% extends "biblio/_base_card_list.html" %}
+{% load sekizai_tags %}
+
+{% comment %}
+Sources pour le scanner js :
+https://scanapp.org/#reader
+https://github.com/mebjas/html5-qrcode
+{% endcomment %}
+
 
 {% block card_title %}
     Ajouter un livre
@@ -9,15 +17,22 @@
 
     <div class="row mb-4">
         <div class="col">
-        <form action="." method="POST" enctype="multipart/form-data" class="form-inline">
 
-            {% for field in form %}
-                {{ field }}
-            {% endfor %}
+            <div style="width: 100%" id="reader"></div>
 
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary mb-2 ml-2">chercher</button>
-        </form>
+            <div class="container pt-5">
+                <div id="result">resultat</div>
+            </div>
+
+            <form action="." method="POST" enctype="multipart/form-data" class="form-inline">
+
+                {% for field in form %}
+                    {{ field }}
+                {% endfor %}
+
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary mb-2 ml-2">chercher</button>
+            </form>
         </div>
     </div>
 
@@ -36,5 +51,23 @@
     </div>
 
 
+    {% addtoblock "js" %}
+        <script src="/static/core/js/html5-qrcode.min.js"></script>
+        <script>
+
+            function onScanSuccess(decodedText, decodedResult) {
+                // Handle on success condition with the decoded text or result.
+                console.log(`Scan result: ${decodedText}`, decodedResult);
+                {#var paragraph = document.getElementById("result");#}
+                {#paragraph.textContent = 'Scan result: ${decodedText}', decodedResult;#}
+                var input_isbn = document.getElementById("id_isbn");
+                input_isbn.value = `${decodedText}`, decodedResult;
+            }
+
+            var html5QrcodeScanner = new Html5QrcodeScanner(
+                "reader", { fps: 10, qrbox: 400 });
+            html5QrcodeScanner.render(onScanSuccess);
+        </script>
+    {% endaddtoblock %}
 
 {% endblock card_content_content %}

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xf8b!pip&7hrw6-n@q^0v+o5ebs=^j3+vsxg@!!da#a*m-5knc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://biblio.en-torrefaction.fr/']
+ALLOWED_HOSTS = ['biblio.en-torrefaction.fr',]
 
 
 # Application definition

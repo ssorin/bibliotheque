@@ -56,7 +56,10 @@ def book_create(book_data, data_origin=None):
 
         create_date = None
         if book_data['create_date']:
-            create_date = datetime.datetime.strptime(book_data['create_date'], "%Y-%m-%d").date()
+            try:
+                create_date = datetime.datetime.strptime(book_data['create_date'], "%Y-%m-%d").date()
+            except:
+                create_date = None
 
         book = Book(
             slug=slugify(book_data['title']),

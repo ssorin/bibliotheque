@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from biblio.models import Book
 
 
+@login_required
 def home(request):
     """
     Page d'accueil du site

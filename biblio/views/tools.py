@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from ..forms import IsbnForm
 from ..tools import book_create, get_data_from_google_api, DATA_ORIGIN_GOOGLE_API
 
 
+@login_required
 def book_create_views(request):
 
     form = IsbnForm()

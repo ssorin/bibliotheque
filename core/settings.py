@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from utils.secret_key_gen import get_secret_key
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,14 +21,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+
+# ==============================================================================
+# the secret key
+# ------------------
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-xf8b!pip&7hrw6-n@q^0v+o5ebs=^j3+vsxg@!!da#a*m-5knc'
+# ==============================================================================
+SECRET_KEY = get_secret_key('secret_key')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['biblio.en-torrefaction.fr',]
-
+# ==============================================================================
+# Config in settings_local.py
+# DEBUG
+# ALLOWED_HOSTS
+# DATABASES
+# ==============================================================================
 
 # Application definition
 

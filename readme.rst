@@ -1,5 +1,13 @@
 Mediatheque
 ===========
+Projet mediatheque pour illustrer le cours Django pour l'ISFAC
+
+
+Install
+-------
+- renomer le fichier settings_local.sample.py en settings_local.py
+- manage.py migrate
+- manage.py createsuperuser
 
 Etape 1 :
 ---------

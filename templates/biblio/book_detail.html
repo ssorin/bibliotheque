@@ -70,6 +70,13 @@
                     {% endif %}
                   </td>
                 </tr>
+
+                <tr>
+                  <td>ISBN :</td>
+                  <td>
+                    {{ book.isbn|default:"-" }}
+                  </td>
+                </tr>
               </tbody>
             </table>
 

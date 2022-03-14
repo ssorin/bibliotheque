@@ -97,14 +97,14 @@ def csv_mapping(book_data):
 def google_api_mapping(book_data):
 
     data = None
-
+    isbn = '' if 'isbn' not in book_data else book_data['isbn']
     if book_data and book_data.get('totalItems') > 0:
         book_data = book_data['items'][0]['volumeInfo']
 
         data = {
             'title': book_data['title'],
             'resume': '' if 'description' not in book_data else book_data['description'],
-            'isbn': '' if 'isbn' not in book_data else book_data['isbn'],
+            'isbn': isbn,
             'authors': '' if 'authors' not in book_data else book_data['authors'][0],
             'edition': '' if 'publisher' not in book_data else book_data['publisher'],
             'type': '',

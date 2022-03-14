@@ -13,6 +13,7 @@ local.py
 settings_local.py
 settings/env.py
 media/
+static/
 ignore/
 .idea/
 secret_key

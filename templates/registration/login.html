@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="card border-left-warning shadow h-100 py-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col mr-2">
+                <div class="text-xs font-weight-bold mb-3">
+    {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            <p>Le nom d'utilisateur et le mot de passe ne correspondent pas..</p>
+        </div>
+    {% endif %}
+
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <div class="form-group text-center">
+            {{ form.username }}
+        </div>
+        <div class="form-group text-center">
+            {{ form.password }}
+        </div>
+
+        <div class="form-group text-right">
+            <input class="btn btn-primary" type="submit" value="login" />
+            <input type="hidden" name="next" value="{{ next }}" />
+        </div>
+
+    </form>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+{% endblock %}

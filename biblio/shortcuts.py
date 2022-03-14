@@ -69,7 +69,7 @@ def add_authors(book, author_data):
     authors = author_data.split(",")
 
     for author_name in authors:
-        if author_name[0] == ' ':
+        if author_name[0] == '':
             author_name = author_name[1:]
 
         try:

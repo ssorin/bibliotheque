@@ -5,7 +5,7 @@ from ..forms import IsbnForm
 from ..tools import book_create, get_data_from_google_api, DATA_ORIGIN_GOOGLE_API
 
 
-def isbn_create(request):
+def book_create_views(request):
 
     form = IsbnForm()
 

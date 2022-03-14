@@ -7,7 +7,7 @@
 {% block card_filter %}
     <form class="form-inline form--right" role="form" method="get">
         <div class="form-group">
-            <label class="filter-col pr-1" for="pref-perpage">Filtrer par: </label>
+            <label class="filter-col pr-1" for="pref-perpage">Trier par: </label>
             <select id="pref-perpage" class="form-control mr-1" name="filter">
                 <option value="title" {% if filter == 'title' %}selected{% endif %}>Titre du livre</option>
                 <option value="create_date" {% if filter == 'create_date' %}selected{% endif %}>Date d'ajout</option>

@@ -52,17 +52,20 @@ https://github.com/mebjas/html5-qrcode
 
 
     {% addtoblock "js" %}
-        <script src="/static/core/js/html5-qrcode.min.js"></script>
+        {% comment %}<script src="/static/core/js/html5-qrcode.min.js"></script>{% endcomment %}
+        <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+
         <script>
 
             function onScanSuccess(decodedText, decodedResult) {
                 // Handle on success condition with the decoded text or result.
+                console.log(`Code scanned = ${decodedText}`, decodedResult);
                 var input_isbn = document.getElementById("id_isbn");
                 input_isbn.value = `${decodedText}`, decodedResult;
             }
 
             var html5QrcodeScanner = new Html5QrcodeScanner(
-                "reader", { fps: 10, qrbox: 400 });
+                "reader", { fps: 10, qrbox: 250 });
             html5QrcodeScanner.render(onScanSuccess);
         </script>
     {% endaddtoblock %}
